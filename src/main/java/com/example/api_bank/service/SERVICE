@@ -1,0 +1,175 @@
+@Service
+public class CompteService {
+
+    @Autowired
+    private CompteRepository compteRepository;
+
+    public void retirer(Long idCompte, double montant) {
+        Compte compte = compteRepository.findById(idCompte).orElseThrow(() -> new EntityNotFoundException("Compte introuvable"));
+
+        if (compte.getSolde() < montant) {
+            throw new RuntimeException("Solde insuffisant");
+        }
+
+        compte.setSolde(compte.getSolde() - montant);
+        compteRepository.save(compte);
+    }
+}
+
+
+@Service
+public class TransferService {
+
+    @Autowired
+    private CompteRepository compteRepository;
+
+    @Transactional
+    public void transferer(Long idCompteSource, Long idCompteDestination, double montant) {
+        Compte compteSource = compteRepository.findById(idCompteSource).orElseThrow(() -> new EntityNotFoundException("Compte source introuvable"));
+        Compte compteDestination = compteRepository.findById(idCompteDestination).orElseThrow(() -> new EntityNotFoundException("Compte de destination introuvable"));
+
+        if (compteSource.getBalance() < montant) {
+            throw new RuntimeException("Solde insuffisant");
+        }
+
+        compteSource.setBalance(compteSource.getBalance() - montant);
+        compteDestination.setBalance(compteDestination.getBalance() + montant);
+
+        compteRepository.save(compteSource);
+        compteRepository.save(compteDestination);
+    }
+}
+
+
+
+
+
+Créer un client :
+bash
+Copy code
+POST http://localhost:8080/api_bank/clients
+Content-Type: application/json
+
+{
+    "nom": "Doe",
+    "prenom": "John",
+    "adresse": "123 Rue de la Paix",
+    "telephone": "0123456789"
+}
+Récupérer un client :
+bash
+Copy code
+GET http://localhost:8080/api_bank/clients/1
+Mettre à jour un client :
+bash
+Copy code
+PUT http://localhost:8080/api_bank/clients/1
+Content-Type: application/json
+
+{
+    "nom": "Doe",
+    "prenom": "Jane",
+    "adresse": "456 Rue du Paradis",
+    "telephone": "9876543210"
+}
+Supprimer un client :
+bash
+Copy code
+DELETE http://localhost:8080/api_bank/clients/1
+Créer un compte :
+bash
+Copy code
+POST http://localhost:8080/api_bank/comptes
+Content-Type: application/json
+
+{
+    "numero": "1234567890",
+    "solde": 1000.0,
+    "clientId": 2
+}
+Récupérer un compte :
+bash
+Copy code
+GET http://localhost:8080/api_bank/comptes/1
+Mettre à jour un compte :
+bash
+Copy code
+PUT http://localhost:8080/api_bank/comptes/1
+Content-Type: application/json
+
+{
+    "numero": "0987654321",
+    "solde": 2000.0,
+    "clientId": 2
+}
+Supprimer un compte :
+bash
+Copy code
+DELETE http://localhost:8080/api_bank/comptes/1
+Effectuer un virement :
+bash
+Copy code
+POST http://localhost:8080/api_bank/virements
+Content-Type: application/json
+
+{
+    "sourceAccountId": 1,
+    "destinationAccountId": 2,
+    "montant": 500.0
+}
+Effectuer une opération de retrait :
+bash
+Copy code
+PUT http://localhost:8080/api_bank/comptes/1/retirer
+Content-Type: application/json
+
+{
+    "montant": 100.0
+}
+
+/////////////////////////////////////////////////////////////////
+
+    @PostMapping("/virements")
+    public ResponseEntity<VirementResponse> effectuerVirement(@Valid @RequestBody VirementRequest virementRequest)
+            throws ResourceNotFoundException, SoldeInsuffisantException {
+        Compte compteSource = compteService.getCompteById(virementRequest.getCompteSourceId())
+                .orElseThrow(() -> new ResourceNotFoundException("Compte source not found for this id :: "
+                        + virementRequest.getCompteSourceId()));
+
+        Compte compteDest = compteService.getCompteById(virementRequest.getCompteDestId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Compte destination not found for this id :: " + virementRequest.getCompteDestId()));
+
+        compteService.effectuerVirement(compteSource, compteDest, virementRequest.getMontant());
+
+        VirementResponse response = new VirementResponse("Virement effectué avec succès !");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/retraits")
+    public ResponseEntity<RetraitResponse> effectuerRetrait(@Valid @RequestBody RetraitRequest retraitRequest)
+            throws ResourceNotFoundException, SoldeInsuffisantException {
+        Compte compte = compteService.getCompteById(retraitRequest.getCompteId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Compte not found for this id :: " + retraitRequest.getCompteId()));
+
+        compteService.effectuerRetrait(compte, retraitRequest.getMontant());
+
+        RetraitResponse response = new RetraitResponse("Retrait effectué avec succès !");
+        return ResponseEntity.ok(response);
+    }
+
+    // Endpoint pour effectuer un débit sur un compte
+    @PostMapping("/debits")
+    public ResponseEntity<DebitResponse> effectuerDebit(@Valid @RequestBody DebitRequest debitRequest)
+            throws ResourceNotFoundException, SoldeInsuffisantException {
+        Compte compte = compteService.getCompteById(debitRequest.getCompteId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Compte not found for this id :: " + debitRequest.getCompteId()));
+
+        compteService.effectuerDebit(compte, debitRequest.getMontant());
+
+        DebitResponse response = new DebitResponse("Débit effectué avec succès !");
+        return ResponseEntity.ok(response);
+    }
+}
