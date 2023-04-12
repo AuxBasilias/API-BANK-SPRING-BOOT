@@ -14,9 +14,9 @@ Lors de la création du compte son solde est nul.
 ### Objectifs:
 1.	Mettre en place une API CRUD pour gérer les comptes et les clients.
 2.	Ajouter les possibilités pour le client de : 
-a.	Faire un versement sur son compte ;
-b.	Faire un retrait sur son compte si le solde le permet ;
-c.	Faire un virement d’un compte à un autre
+-	Faire un versement sur son compte ;
+-	Faire un retrait sur son compte si le solde le permet ;
+-	Faire un virement d’un compte à un autre
 
 
 ## Modèle
