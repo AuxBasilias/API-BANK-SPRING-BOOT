@@ -47,10 +47,9 @@ Lors de la création du compte son solde est nul.
 ### Opérations sur les clients
 
 | Méthode | URL | Description | Exemple de corps de requête valide |
-|---------|-----|-------------|   |
 | GET | /clients | Récupère tous les clients |  |
 | GET | /clients/{id} | Récupère un client spécifique |  |
-| POST | /clients | CréeR un nouveau client | JSON |
+| POST | /clients | Créer un nouveau client | JSON |
 | PUT | /clients/{id} | Met à jour un client existant | JSON |
 | DELETE | /clients/{id} | Supprime un client existant |   |
 | GET | /clients/{id}/comptes | Récupère les comptes d'un client spécifique |   |
@@ -58,7 +57,6 @@ Lors de la création du compte son solde est nul.
 ### Opérations sur les comptes
 
 | Méthode | URL | Description | Exemple de corps de requête valide |
-|---------|-----|-------------|  |
 | GET | /comptes | Récupère tous les comptes |   |
 | GET | /comptes/{numCompte} | Récupère un compte spécifique |   |
 | POST | /comptes | Crée un nouveau compte | JSON |
