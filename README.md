@@ -71,7 +71,7 @@ Lors de la création du compte son solde est nul.
 ## Exemples de corps de requêtes JSON valides
 
 
-##### <a id="creerclient">Créer un client -> /clients</a>
+##### <a id="creerclient">Créer un client -> http://localhost:9000/clients</a>
 ```json
 {
     "nom":"LIONEL",
@@ -94,7 +94,7 @@ Lors de la création du compte son solde est nul.
 }
 ```
 
-##### <a id="creercompte">Créer un compte -> http://localhost:9000/clients/1</a>
+##### <a id="creercompte">Créer un compte -> http://localhost:9000/comptes</a>
 ```json
 {
     "typeCompte":"EPARGNE",
