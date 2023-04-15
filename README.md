@@ -47,26 +47,26 @@ Lors de la création du compte son solde est nul.
 ### Opérations sur les clients
 
 | Méthode | URL | Description | Exemple de corps de requête valide |
-|---------|-----|-------------| |
-| GET | /clients | Récupère tous les clients ||
-| GET | /clients/{id} | Récupère un client spécifique ||
+|---------|-----|-------------|   |
+| GET | /clients | Récupère tous les clients |  |
+| GET | /clients/{id} | Récupère un client spécifique |  |
 | POST | /clients | CréeR un nouveau client | JSON |
 | PUT | /clients/{id} | Met à jour un client existant | JSON |
-| DELETE | /clients/{id} | Supprime un client existant ||
-| GET | /clients/{id}/comptes | Récupère les comptes d'un client spécifique ||
+| DELETE | /clients/{id} | Supprime un client existant |   |
+| GET | /clients/{id}/comptes | Récupère les comptes d'un client spécifique |   |
 
 ### Opérations sur les comptes
 
 | Méthode | URL | Description | Exemple de corps de requête valide |
-|---------|-----|-------------||
-| GET | /comptes | Récupère tous les comptes ||
-| GET | /comptes/{numCompte} | Récupère un compte spécifique ||
+|---------|-----|-------------|  |
+| GET | /comptes | Récupère tous les comptes |   |
+| GET | /comptes/{numCompte} | Récupère un compte spécifique |   |
 | POST | /comptes | Crée un nouveau compte | JSON |
-| DELETE | /comptes/{numCompte} | Supprime un compte existant ||
-| GET | /comptes/{numCpt}/proprietaire | Récupère le proprietaire du compte ||
-| PUT | /comptes/{numCompte}/retrait/{montant} | Faire le retrait d'un montant sur un compte ||
-| PUT | /comptes/{numCompte}/depot/{montant} | Faire le depot d'un montant sur un compte ||
-| PUT | /comptes/{numCompteSource}/virement/{numCompteDest}/{montant} | Faire le virement d'un compte(numCompteSource) source à un compte de destination (numCompteDest)  montant sur un compte ||
+| DELETE | /comptes/{numCompte} | Supprime un compte existant |   |
+| GET | /comptes/{numCpt}/proprietaire | Récupère le proprietaire du compte |    |
+| PUT | /comptes/{numCompte}/retrait/{montant} | Faire le retrait d'un montant sur un compte |   |
+| PUT | /comptes/{numCompte}/depot/{montant} | Faire le depot d'un montant sur un compte |    |
+| PUT | /comptes/{numCompteSource}/virement/{numCompteDest}/{montant} | Faire le virement d'un compte(numCompteSource) source à un compte de destination (numCompteDest)  montant sur un compte |     |
 
 ## Exemples de corps de requêtes JSON valides
 
