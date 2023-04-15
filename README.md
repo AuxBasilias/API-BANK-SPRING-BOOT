@@ -47,19 +47,21 @@ Lors de la création du compte son solde est nul.
 ### Opérations sur les clients
 
 | Méthode | URL | Description | Exemple de corps de requête valide |
+|---------|-----|-------------|------------------------------------|
 | GET | /clients | Récupère tous les clients |  |
 | GET | /clients/{id} | Récupère un client spécifique |  |
-| POST | /clients | Créer un nouveau client | JSON |
-| PUT | /clients/{id} | Met à jour un client existant | JSON |
+| POST | /clients | Créer un nouveau client | [JSON](#creerclient) |
+| PUT | /clients/{id} | Met à jour un client existant | [JSON](#modifierclient) |
 | DELETE | /clients/{id} | Supprime un client existant |   |
 | GET | /clients/{id}/comptes | Récupère les comptes d'un client spécifique |   |
 
 ### Opérations sur les comptes
 
 | Méthode | URL | Description | Exemple de corps de requête valide |
+|---------|-----|-------------|------------------------------------|
 | GET | /comptes | Récupère tous les comptes |   |
 | GET | /comptes/{numCompte} | Récupère un compte spécifique |   |
-| POST | /comptes | Crée un nouveau compte | JSON |
+| POST | /comptes | Crée un nouveau compte | [JSON](#creercompte) |
 | DELETE | /comptes/{numCompte} | Supprime un compte existant |   |
 | GET | /comptes/{numCpt}/proprietaire | Récupère le proprietaire du compte |    |
 | PUT | /comptes/{numCompte}/retrait/{montant} | Faire le retrait d'un montant sur un compte |   |
@@ -69,7 +71,7 @@ Lors de la création du compte son solde est nul.
 ## Exemples de corps de requêtes JSON valides
 
 
-##### <a>Créer un client -> /clients</a>
+##### <a id="creerclient">Créer un client -> /clients</a>
 ```json
 {
     "nom":"LIONEL",
@@ -83,7 +85,7 @@ Lors de la création du compte son solde est nul.
 }
 ```
 
-##### <a>Modifier un client -> http://localhost:9000/clients/1</a>
+##### <a id="modifierclient">Modifier un client -> http://localhost:9000/clients/1</a>
 ```json
 {
     "dateNaissance":"2003-11-18",
@@ -92,7 +94,7 @@ Lors de la création du compte son solde est nul.
 }
 ```
 
-##### <a>Créer un compte -> http://localhost:9000/clients/1</a>
+##### <a id="creercompte">Créer un compte -> http://localhost:9000/clients/1</a>
 ```json
 {
     "typeCompte":"EPARGNE",
