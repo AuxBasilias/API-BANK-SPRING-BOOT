@@ -27,8 +27,10 @@ public class Compte {
         return numCompte;
     }
 
+
+
     public void setNumCompte(String numCompte) {
-        this.numCompte = numCompte;
+        this.genererNumCompte();
     }
 
     public TypeCompte getTypeCompte() {

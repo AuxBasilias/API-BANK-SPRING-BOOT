@@ -23,21 +23,19 @@ public class Client {
     private Sexe sexe;
     @Column
     private String adresse;
-    @Column(nullable = true)
+    @Column(nullable = true, unique = true)
     private String numTel;
-    @Column
+
+    @Column(nullable = true,unique = true)
     private String courriel;
     @Column(nullable = true)
     private String nationalite;
     @JsonIgnore
-    @OneToMany(mappedBy = "proprietaire")
+    @OneToMany(mappedBy = "proprietaire",cascade = CascadeType.ALL)
     public List<Compte> comptes;
 
     public long getId(){
         return id;
-    }
-    public void setId(long id){
-        this.id = id;
     }
 
     public String getNom() {
