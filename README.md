@@ -101,6 +101,5 @@ Lors de la création du compte son solde est nul.
     "proprietaire":{
         "id":"1"
     },
-    "solde":"100"
 }
 ```
