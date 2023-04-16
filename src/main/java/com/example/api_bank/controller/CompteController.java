@@ -49,6 +49,10 @@ public class CompteController {
     }
     @PostMapping
     public ResponseEntity<?> enregistrerCompte(@RequestBody Compte compte) {
+        if (compte.getSolde()!=0){
+            String errorMessage = "Le solde d'un compte à sa création est null, cette opération est impossible";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
         try {
             compteRepo.save(compte);
             return ResponseEntity.ok("Compte " + compte.getNumCompte() + " créé");
