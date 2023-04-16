@@ -29,6 +29,7 @@ Lors de la création du compte son solde est nul.
 | prenom | string | Prenom du client |
 | dateNaissance | date | Date de de naissance du client (format "yyyy-mm-dd") |
 | adresse | string | Adresse du client |
+| sexe | string | sexe du client, il doit obligatirement être "M" ou "F" |
 | numTel | string | Numéro de télephone du client |
 | courriel | string | Courriel du client |
 | nationalite | string | Nationalité du client |
@@ -37,7 +38,7 @@ Lors de la création du compte son solde est nul.
 | Champ | Type | Description |
 |-------|------|-------------|
 | numCompte | int | Numéro de compte générer automatiquement |
-| typeCompte | string | Type de compte, elle doit obligatoirement être "COURANT" ou "EPARGNE" |
+| typeCompte | string | Type de compte, il doit obligatoirement être "COURANT" ou "EPARGNE" |
 | solde | double | Solde du compte, default=0 |
 | dateCreation | String | Date de création générer automatiquement avec la date du jour |
 | proprietaire | Client | Client proprietaire du compte |
