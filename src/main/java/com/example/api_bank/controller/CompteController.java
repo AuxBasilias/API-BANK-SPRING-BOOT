@@ -2,6 +2,8 @@ package com.example.api_bank.controller;
 
 import com.example.api_bank.model.Client;
 import com.example.api_bank.model.Compte;
+import com.example.api_bank.payload.PostCompte;
+import com.example.api_bank.repo.ClientRepo;
 import com.example.api_bank.repo.CompteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class CompteController {
     @Autowired
     public CompteRepo compteRepo;
+    @Autowired
+    public ClientRepo clientRepo;
     @GetMapping
     public List<Compte> getComptes(){
         return compteRepo.findAll();
@@ -48,14 +52,16 @@ public class CompteController {
         }
     }
     @PostMapping
-    public ResponseEntity<?> enregistrerCompte(@RequestBody Compte compte) {
-        if (compte.getSolde()!=0){
-            String errorMessage = "Le solde d'un compte à sa création est null, cette opération est impossible";
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
-        }
+    public ResponseEntity<?> enregistrerCompte(@RequestBody PostCompte postcompte) {
+//        if (compte.getSolde()!=0){
+//            String errorMessage = "Le solde d'un compte à sa création est null, cette opération est impossible";
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+//        }
         try {
-            compteRepo.save(compte);
-            return ResponseEntity.ok("Compte " + compte.getNumCompte() + " créé");
+            Client proprietaire = clientRepo.findById(postcompte.getProprietaire()).get();
+            Compte compteSaved = new Compte(postcompte.getTypeCompte(),proprietaire);
+            compteRepo.save(compteSaved);
+            return ResponseEntity.ok("Compte " + compteSaved.getNumCompte() + " créé");
         } catch (Exception e) {
             String errorMessage = "Erreur lors de l'enregistrement du compte: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
