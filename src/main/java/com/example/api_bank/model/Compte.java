@@ -85,5 +85,10 @@ public class Compte {
         }
         return sb.toString();
     }
+    public Compte(TypeCompte typeCompte,Client proprietaire ){
+        this.genererNumCompte();
+        this.typeCompte = typeCompte;
+        this.proprietaire = proprietaire;
+    }
 }
 
