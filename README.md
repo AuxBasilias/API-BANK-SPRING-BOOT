@@ -84,6 +84,9 @@ Lors de la création du compte son solde est nul.
 | GET | /operations/retraits |Récupère tous les virements effectués ||
 | GET | /operations/virements/{txnid} | Récupère un virement effectué grâce à son identifiant de transaction|   |
 
+### Documentation génerer avec swagger
+http://localhost:9000/swagger-ui/index.html
+!(swagger.png)
 
 ## Exemples de corps de requêtes JSON valides
 
