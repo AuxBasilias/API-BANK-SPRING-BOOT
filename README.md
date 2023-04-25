@@ -65,12 +65,30 @@ Lors de la création du compte son solde est nul.
 | POST | /comptes | Crée un nouveau compte | [JSON](#creercompte) |
 | DELETE | /comptes/{numCompte} | Supprime un compte existant |   |
 | GET | /comptes/{numCpt}/proprietaire | Récupère le proprietaire du compte |    |
-| PUT | /comptes/{numCompte}/retrait/{montant} | Faire le retrait d'un montant sur un compte |   |
-| PUT | /comptes/{numCompte}/depot/{montant} | Faire le depot d'un montant sur un compte |    |
-| PUT | /comptes/{numCompteSource}/virement/{numCompteDest}/{montant} | Faire le virement d'un compte(numCompteSource) source à un compte de destination (numCompteDest)  montant sur un compte |     |
+| PUT | /comptes/retrait| Faire le retrait d'un montant sur un compte | [JSON](#retrait)  |
+| PUT | /comptes/depot | Faire le depot d'un montant sur un compte | [JSON](#depot) |
+| PUT | /comptes/virement | Faire le virement d'un compte(numCompteSource) source à un compte de destination (numCompteDest) avec un montant sur un compte |  [JSON](#virement)   |
+| GET | /comptes/{numCompte}/depots | Récupère les dépots effectués sur un compte |    |
+| GET | /comptes/{numCompte}/retrait | Récupère les retraits effectués sur un compte |    |
+| GET | /comptes/{numCompte}/virementsRecu | Récupère les virements reçus par un compte |    |
+| GET | /comptes/{numCompte}/virementsEnvoye | Récupère les virements envoyés par un compte |    |
+
+### Informations sur les opérations(dépot, retraits, virements)
+
+| Méthode | URL | Description | Exemple de corps de requête valide |
+|---------|-----|-------------|------------------------------------|
+| GET | /operations/depots | Récupère tous les dépots effectués |   |
+| GET | /operations/depots/{txnid} | Récupère un dépot effectué grâce à son identifiant de transaction|   |
+| GET | /operations/retraits |  Récupère tous les retraits effectués ||
+| GET | /operations/retraits/{txnid} | Récupère un retrait effectué grâce à son identifiant de transaction|   |
+| GET | /operations/retraits |Récupère tous les virements effectués ||
+| GET | /operations/virements/{txnid} | Récupère un virement effectué grâce à son identifiant de transaction|   |
+
+### Documentation génerer avec swagger
+http://localhost:9000/swagger-ui/index.html
+!(swagger.png)
 
 ## Exemples de corps de requêtes JSON valides
-
 
 ##### <a id="creerclient">Créer un client -> http://localhost:9000/clients</a>
 ```json
@@ -89,8 +107,13 @@ Lors de la création du compte son solde est nul.
 ##### <a id="modifierclient">Modifier un client -> http://localhost:9000/clients/1</a>
 ```json
 {
+    "nom":"MIRAI",
+    "prenom":"Xavier",
     "dateNaissance":"2003-11-18",
+    "sexe":"M",
     "adresse":"Lome",
+    "courriel":"tx@gmail.com",
+    "numTel":"90854562",
     "nationalite":"Togolese"
 }
 ```
@@ -99,8 +122,32 @@ Lors de la création du compte son solde est nul.
 ```json
 {
     "typeCompte":"EPARGNE",
-    "proprietaire":{
-        "id":"1"
-    },
+    "proprietaire":1,
+}
+```
+Remarque: Impossible de créer un compte avec un solde, le solde par défaut est égale à 0
+
+##### <a id="retrait">Faire un retrait -> PUT http://localhost:9000/comptes/retrait</a>
+```json
+{
+    "numCompte":"E64422023",
+    "montant":"100"
+}
+```
+
+##### <a id="depot">Faire un depot -> PUT http://localhost:9000/comptes/depot</a>
+```json
+{
+    "numCompte":"4OI6X2023",
+    "montant":"100"
+}
+```
+
+##### <a id="virement">Faire un virement -> PUT http://localhost:9000/comptes/virement</a>
+```json
+{
+    "numeroCompteSource":"NZ9HR2023",
+    "numeroCompteDest":"QX6Z32023",
+    "montant":"1000"
 }
 ```
