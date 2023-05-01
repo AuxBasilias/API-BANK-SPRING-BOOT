@@ -151,3 +151,24 @@ Remarque: Impossible de créer un compte avec un solde, le solde par défaut est
     "montant":"1000"
 }
 ```
+## Technologies
+* Spring Boot 3.0
+* Maven
+* H2 database
+ 
+## Installation
+Pour utiliser ce projet, vous devrez avoir les éléments suivants installés sur votre ordinateur :
+
+* JDK 19+
+* Maven 3+
+
+
+Pour exécuter le projet, suivez ces étapes :
+
+* Clonez le dépôt : `git clone https://github.com/AuxBasilias/API-BANK-SPRING-BOOT`
+* Accédez au répertoire du projet : cd API-BANK-SPRING-BOOT
+* Construisez le projet : mvnw clean install
+* Exécutez le projet : mvnw spring-boot:run 
+
+-> L'application sera disponible à l'adresse http://localhost:9000.
+
